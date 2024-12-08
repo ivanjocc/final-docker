@@ -1,0 +1,42 @@
+services:
+  frontend:
+    build:
+      context: ./frontend
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+
+  backend:
+    build:
+      context: ./backend/app
+    ports:
+      - "8000:8000"
+    depends_on:
+      - nlp-service
+      - matching-service
+      - cover-letter-service
+
+  nlp-service:
+    build:
+      context: ./backend/microservices/nlp_service
+    ports:
+      - "8001:8001"
+
+  matching-service:
+    build:
+      context: ./backend/microservices/matching_service
+    ports:
+      - "8002:8002"
+
+  cover-letter-service:
+    build:
+      context: ./backend/microservices/cover_letter_service
+    ports:
+      - "8003:8003"
+
+  service-chatbots-service:
+    build:
+      context: ./backend/microservices/service-chatbots-service
+    ports:
+      - "8004:8004"
